@@ -40,18 +40,21 @@ openground is an on-device RAG system that extracts documentation from git repos
 
 ### Installation
 
-Recommended to install with [uv](https://docs.astral.sh/uv/):
+Recommended to install with [uv](https://docs.astral.sh/uv/).
+You must choose one of the backends, as shown here:
 
 ```bash
-uv tool install openground # Larger package size, automatic GPU/MPS/CPU support
-uv tool install 'openground[fastembed]' # Lightweight CPU support
-uv tool install 'openground[fastembed-gpu]' # Experimental CUDA/GPU support through fastembed
+uv tool install 'openground[fastembed-cpu]'        # CPU
+uv tool install 'openground[fastembed-gpu]'        # CUDA GPU (Linux/Windows)
+uv tool install 'openground[sentence-transformers]' # auto GPU/MPS/CPU
 ```
 
 or
 
 ```bash
-pip install openground
+pip install 'openground[fastembed-cpu]'
+pip install 'openground[fastembed-gpu]'
+pip install 'openground[sentence-transformers]'
 ```
 
 ### Add Documentation
@@ -192,8 +195,8 @@ Now your AI assistant can search your stored documentation automatically!
 Here's how to add the fastembed documentation and make it available to Claude Code:
 
 ```bash
-# 1. Install openground
-uv tool install openground
+# 1. Install openground with a backend
+uv tool install 'openground[fastembed-cpu]'
 
 # 2. Add fastembed to openground
 openground add fastembed --source https://github.com/qdrant/fastembed.git --docs-path docs/ --version v0.7.4 -y

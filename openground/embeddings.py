@@ -71,7 +71,7 @@ def check_gpu_compatibility() -> None:
             "\nWarning: openground[fastembed-gpu] is installed but no NVIDIA GPU was detected."
         )
         warning("   You may want to switch to the CPU version:")
-        warning("   uv tool install 'openground[fastembed]'\n")
+        warning("   uv tool install 'openground[fastembed-cpu]'\n")
 
     elif gpu_hardware and has_gpu_pkg and not functional_gpu:
         error(
@@ -83,7 +83,7 @@ def check_gpu_compatibility() -> None:
         error(
             "   See: https://oliviajain.github.io/onnxruntime/docs/execution-providers/CUDA-ExecutionProvider.html\n"
         )
-        error("  2. Install the CPU version: uv tool install 'openground[fastembed]'")
+        error("  2. Install the CPU version: uv tool install 'openground[fastembed-cpu]'")
         error(
             "  3. If you still want gpu performance, you can install the more bulky"
             "sentence-transformers backend: uv tool install 'openground[sentence-transformers]'"
