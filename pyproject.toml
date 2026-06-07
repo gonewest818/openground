@@ -32,20 +32,27 @@ dependencies = [
     "pydantic>=2.0.0,<3.0.0",
     "trafilatura>=2.0.0,<3.0.0",
     "typer>=0.9.0,<1.0.0",
-    "lancedb>=0.1.0,<1.0.0",
+    "lancedb>=0.1.0,<0.26.0",
     "langchain-text-splitters>=1.0.0,<2.0.0",
     "tqdm>=4.60.0",
     "fastmcp>=2.13.3,<3.0.0",
     "pandas>=2.3.3,<3.0.0",
     "rich>=14.0.0,<15.0.0",
     "nbformat>=5.0.0,<6.0.0",
-    "sentence-transformers>=5.0.0,<6.0.0",
-    "torch>=2.0.0,<3.0.0",
+    "fastembed>=0.2.0,<1.0.0",
+    "onnxruntime==1.23.2",
 ]
 
 [project.optional-dependencies]
 fastembed-cpu = ["fastembed>=0.2.0,<1.0.0"]
-fastembed-gpu = ["fastembed-gpu>=0.2.0,<1.0.0"]
+fastembed-gpu = ["fastembed-gpu>=0.2.0,<1.0.0; sys_platform != 'darwin'"]
+sentence-transformers = [
+    "sentence-transformers>=5.0.0,<6.0.0",
+    "torch>=2.0.0,<=2.2.2; sys_platform == 'darwin' and platform_machine == 'x86_64'",
+    "torch>=2.0.0,<3.0.0; sys_platform != 'darwin' or platform_machine != 'x86_64'",
+    "transformers<5.0.0",
+    "numpy<2; sys_platform == 'darwin' and platform_machine == 'x86_64'",
+]
 
 [dependency-groups]
 dev = [

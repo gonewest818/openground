@@ -43,15 +43,30 @@ openground is an on-device RAG system that extracts documentation from git repos
 Recommended to install with [uv](https://docs.astral.sh/uv/):
 
 ```bash
-uv tool install openground # Larger package size, automatic GPU/MPS/CPU support
-uv tool install 'openground[fastembed]' # Lightweight CPU support
-uv tool install 'openground[fastembed-gpu]' # Experimental CUDA/GPU support through fastembed
+# Lightweight CPU-only (fastembed) — DEFAULT
+uv tool install openground
+
+# Explicit lightweight CPU (same as default)
+uv tool install 'openground[fastembed]'
+
+# CUDA GPU via fastembed (Linux/Windows only)
+uv tool install 'openground[fastembed-gpu]'
+
+# Automatic GPU/MPS/CPU via sentence-transformers + torch
+uv tool install 'openground[sentence-transformers]'
+
+# Combine backends (both available at runtime via config)
+uv tool install 'openground[fastembed,sentence-transformers]'
+uv tool install 'openground[fastembed-gpu,sentence-transformers]'
 ```
 
 or
 
 ```bash
-pip install openground
+pip install openground                    # lightweight CPU (fastembed)
+pip install 'openground[fastembed]'       # lightweight CPU (fastembed)
+pip install 'openground[fastembed-gpu]'   # CUDA GPU (Linux/Windows)
+pip install 'openground[sentence-transformers]'  # auto GPU/MPS/CPU (torch)
 ```
 
 ### Add Documentation

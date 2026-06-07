@@ -5,7 +5,7 @@ from pathlib import Path
 
 import lancedb
 import pyarrow as pa
-from langchain_text_splitters import RecursiveCharacterTextSplitter
+from openground.text_splitter import RecursiveCharacterTextSplitter
 from tqdm import tqdm
 
 from openground.extract.common import ParsedPage
