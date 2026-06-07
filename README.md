@@ -57,6 +57,11 @@ pip install 'openground[fastembed-gpu]'
 pip install 'openground[sentence-transformers]'
 ```
 
+If you install openground without a backend, the CLI will start but it will
+warn immediately that no embedding backend is installed. Commands that need
+embeddings, including `add`, `embed`, `query`, and the MCP server, will stop
+with a clear message until you install one of the backends above.
+
 ### Add Documentation
 
 Openground can source documentation from git repos, sitemaps, or local directories.

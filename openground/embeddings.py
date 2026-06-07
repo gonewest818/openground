@@ -11,6 +11,50 @@ from openground.config import get_effective_config
 from openground.console import error, hint, warning
 
 
+def has_any_embedding_backend() -> bool:
+    """Return True if at least one embedding backend is installed."""
+    try:
+        import fastembed  # noqa: F401
+
+        return True
+    except ImportError:
+        pass
+
+    try:
+        import sentence_transformers  # noqa: F401
+        import torch  # noqa: F401
+
+        return True
+    except ImportError:
+        pass
+
+    return False
+
+
+def warn_if_no_embedding_backend() -> None:
+    """Warn, but do not fail, if no embedding backend is installed."""
+    if has_any_embedding_backend():
+        return
+
+    warning("Warning: openground installed without embeddings.\n")
+
+
+def require_any_embedding_backend() -> None:
+    """Exit with a clear error if no embedding backend is installed."""
+    if has_any_embedding_backend():
+        return
+
+    error(
+        "Error: openground installed without embeddings.\n\n"
+        "To perform this command, install one of:\n\n"
+        "  uv tool install openground[fastembed-cpu]\n"
+        "  uv tool install openground[fastembed-gpu]\n"
+        "  uv tool install openground[sentence-transformers]\n"
+
+    )
+    raise SystemExit(1)
+
+
 @lru_cache(maxsize=1)
 def get_st_model(model_name: str):
     """Get a cached instance of SentenceTransformer."""
